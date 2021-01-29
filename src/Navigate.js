@@ -17,6 +17,8 @@ import Saved from "./components/screens/Saved";
 import SolidarityMap from "./components/screens/SolidarityMap";
 import SuccessHistory from "./components/screens/SuccessHistory";
 import WelcomePage from "./components/screens/WelcomePage";
+import SignIn from "./components/screens/SignIn";
+import EndSignIn from "./components/screens/EndSignIn";
 
 const Stack = createStackNavigator();
 
@@ -31,6 +33,8 @@ const Navigate = () => {
       >
         <Stack.Screen name="WelcomePage" component={WelcomePage} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="EndSignIn" component={EndSignIn} />
         <Stack.Screen name="Inicio" component={Inicio} />
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Comments" component={Comments} />

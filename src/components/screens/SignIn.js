@@ -4,24 +4,31 @@ import { ScrollView, TextInput } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { colors, font, size } from "../../constants/Temas";
-import { backgroundInput, backgroundInput2 } from "../generals/funtionColors";
+import {
+  backgroundInput,
+  backgroundInput2,
+  backgroundInput3,
+} from "../generals/funtionColors";
 
-const Login = ({ navigation }) => {
+const SignIn = ({ navigation }) => {
   const [contraseñaInput, setContraseñaInput] = useState("");
   const [contraseñaInput2, setContraseñaInput2] = useState("");
+  const [contraseñaInput3, setContraseñaInput3] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [isFocused2, setIsFocused2] = useState(false);
+  const [isFocused3, setIsFocused3] = useState(false);
 
   const goToTheInicio = () => {
     navigation.push("Inicio", navigation);
   };
 
-  const goToTheSignIn = () => {
-    navigation.push("SignIn", navigation);
+  const goToTheLogIn = () => {
+    navigation.push("Login", navigation);
   };
 
-  // console.log("Rfpercentage:", RFPercentage(3.8));
-
+  const goToTheEndSignIn = () => {
+    navigation.push("EndSignIn", navigation);
+  };
   return (
     <View style={styles.viewContainer}>
       <View
@@ -64,8 +71,9 @@ const Login = ({ navigation }) => {
             <Pressable style={styles.logSignPressable}>
               {({ pressed }) => (
                 <Text
+                  onPress={() => goToTheLogIn()}
                   style={[
-                    styles.logText,
+                    styles.loginText,
                     {
                       color: pressed
                         ? "rgba(201, 107, 49,0.2)"
@@ -90,7 +98,6 @@ const Login = ({ navigation }) => {
             <Pressable style={styles.logSignPressable}>
               {({ pressed }) => (
                 <Text
-                  onPress={() => goToTheSignIn()}
                   style={[
                     styles.signText,
                     {
@@ -111,7 +118,7 @@ const Login = ({ navigation }) => {
         style={{
           alignItems: "center",
           // borderWidth: 1,
-          height: "30%",
+          height: "40%",
           // flex: 1,
           justifyContent: "center",
           width: "100%",
@@ -177,13 +184,39 @@ const Login = ({ navigation }) => {
             onChangeText={(e) => setContraseñaInput2(e)}
             // caretHidden={true}
           />
+          <Text
+            style={{
+              // borderWidth: 1,
+              color: "#c96b31",
+              fontWeight: "bold",
+              fontSize: RFPercentage(2.5),
+              height: RFPercentage(5),
+              marginLeft: RFPercentage(4),
+              marginTop: RFPercentage(2),
+              textAlignVertical: "center",
+              width: "85%",
+            }}
+          >
+            Confirma contraseña
+          </Text>
+          <TextInput
+            style={backgroundInput3(
+              isFocused3 === true || contraseñaInput !== ""
+                ? "white"
+                : "rgb(252, 234, 224)"
+            )}
+            onBlur={() => setIsFocused3(false)}
+            onFocus={() => setIsFocused3(true)}
+            onChangeText={(e) => setContraseñaInput3(e)}
+            // caretHidden={true}
+          />
         </ScrollView>
       </View>
       <View
         style={{
           alignItems: "center",
           // borderWidth: 1,
-          height: "35%",
+          height: "25%",
           width: "100%",
         }}
       >
@@ -191,14 +224,15 @@ const Login = ({ navigation }) => {
           style={{
             alignItems: "center",
             // borderWidth: 1,
-            height: "40%",
-            justifyContent: "space-around",
+            height: "50%",
+            justifyContent: "space-between",
             width: "100%",
           }}
         >
           <Pressable
+            onPress={() => goToTheEndSignIn()}
             style={({ pressed }) => [
-              styles.LoginInBottomPressable,
+              styles.siguientePressable,
               {
                 backgroundColor: pressed
                   ? "rgba(193, 86, 39,0.2)"
@@ -218,43 +252,9 @@ const Login = ({ navigation }) => {
                 width: "95%",
               }}
             >
-              Iniciar sesión
+              Siguiente
             </Text>
           </Pressable>
-          <Pressable
-            style={{
-              alignItems: "center",
-              // borderWidth: 1,
-              height: "40%",
-              justifyContent: "center",
-              width: "60%",
-            }}
-          >
-            {({ pressed }) => (
-              <Text
-                style={[
-                  styles.olvidasteText,
-                  {
-                    color: pressed
-                      ? "rgba(42,35,69, 0.2)"
-                      : "rgba(42,35,69, 0.8)",
-                  },
-                ]}
-              >
-                ¿Olvidaste tú contraseña?
-              </Text>
-            )}
-          </Pressable>
-        </View>
-        <View
-          style={{
-            alignItems: "center",
-            // borderWidth: 1,
-            height: "40%",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
           <Pressable
             style={({ pressed }) => [
               styles.facebookPressable,
@@ -287,8 +287,7 @@ const Login = ({ navigation }) => {
   );
 };
 
-export default Login;
-
+export default SignIn;
 const styles = StyleSheet.create({
   facebookPressable: {
     alignItems: "center",
@@ -296,8 +295,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     // borderWidth: 1,
     flexDirection: "row",
-    height: "40%",
+    height: "45%",
     justifyContent: "center",
+    // marginTop: RFPercentage(),
     width: "75%",
   },
   logSignPressable: {
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
   },
-  LoginInBottomPressable: {
+  siguientePressable: {
     alignItems: "center",
     borderRadius: 20,
     // borderWidth: 1,
@@ -316,14 +316,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "50%",
   },
-  logText: {
+  loginText: {
     // borderWidth: 1,
     // color: "rgb(201, 107, 49)",
     fontSize: RFPercentage(2.5),
+    fontWeight: "bold",
     height: "95%",
     textAlign: "center",
     textAlignVertical: "center",
-    textDecorationLine: "underline",
+    // textDecorationLine: "underline",
     width: "95%",
   },
   olvidasteText: {
@@ -338,10 +339,11 @@ const styles = StyleSheet.create({
   signText: {
     // borderWidth: 1,
     fontSize: RFPercentage(2.5),
-    fontWeight: "bold",
+    // fontWeight: "bold",
     height: "95%",
     textAlign: "center",
     textAlignVertical: "center",
+    textDecorationLine: "underline",
     width: "95%",
   },
   viewContainer: {

@@ -1,74 +1,63 @@
+import { Picker } from "@react-native-picker/picker";
 import React, { useState } from "react";
 import { Text, View, StyleSheet, Image, Pressable } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { colors, font, size } from "../../constants/Temas";
-import {
-  backgroundInput,
-  backgroundInput2,
-  backgroundInput3,
-} from "../generals/funtionColors";
+import { colors, font, opacity, size } from "../../constants/Temas";
+import { PICKER } from "../functionality/Trash";
+import moment from "moment";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import Iconos from "../generals/Iconos";
 
-const EndSignIn = () => {
-  const [contraseñaInput, setContraseñaInput] = useState("");
-  const [contraseñaInput2, setContraseñaInput2] = useState("");
-  const [contraseñaInput3, setContraseñaInput3] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
-  const [isFocused2, setIsFocused2] = useState(false);
-  const [isFocused3, setIsFocused3] = useState(false);
+const EndSignIn = ({ navigation }) => {
+  const [birth, setBorn] = useState("");
+  const [date, setDate] = useState();
+  const [show, setShow] = useState(false);
+  const [picker, setPicker] = useState("");
+  const [picker2, setPicker2] = useState("");
 
   const goToTheInicio = () => {
-    navigation.push("Inicio", navigation);
+    navigation.navigate("Inicio", navigation);
   };
 
   const goToTheLogIn = () => {
     navigation.push("Login", navigation);
   };
 
-  const goToTheEndSignIn = () => {
-    navigation.push("EndSignIn", navigation);
+  const goTotheSignIn = () => {
+    navigation.navigate("SignIn");
   };
+
+  const handleChangeDate = (event, selectedDate) => {
+    setShow(Platform.OS === "ios");
+    setDate(selectedDate || date);
+    setShow(false);
+    setBorn(selectedDate);
+  };
+
+  // console.log("show:", show);
+  // console.log("date:", date);
+  // console.log("born:", born);
   return (
     <View style={styles.viewContainer}>
-      <View
-        style={{
-          alignItems: "center",
-          // borderWidth: 1,
-          // height: "35%",
-          flex: 1,
-          width: "100%",
-        }}
-      >
-        <Image
-          source={require("../../../assets/images/logo_blanco.png")}
-          style={{
-            flex: 1,
-            height: "60%",
-            // marginTop: RFPercentage(10),
-            resizeMode: "contain",
-          }}
-        />
-        <View
-          style={{
-            alignItems: "center",
-            // borderWidth: 1,
-            flexDirection: "row",
-            height: "35%",
-            // flex: 1,
-            height: "30%",
-            width: "100%",
-          }}
-        >
-          <View
-            style={{
-              alignItems: "center",
-              //   borderWidth: 1,
-              height: "95%",
-              justifyContent: "center",
-              width: "50%",
-            }}
-          >
+      <View style={{ alignItems: "center", flex: 1, width: "100%" }}>
+        <View style={styles.topView}>
+          <Pressable onPress={() => goTotheSignIn()}>
+            {({ pressed }) => (
+              <Iconos
+                name={"Regreso"}
+                fill={pressed ? opacity.naranajaSuperClaro : colors.naranja}
+                height={"100%"}
+              />
+            )}
+          </Pressable>
+          <Image
+            source={require("../../../assets/images/logo_blanco.png")}
+            style={styles.boxImage}
+          />
+        </View>
+        <View style={styles.signTopView}>
+          <View style={styles.signView}>
             <Pressable style={styles.logSignPressable}>
               {({ pressed }) => (
                 <Text
@@ -76,8 +65,9 @@ const EndSignIn = () => {
                     styles.signText,
                     {
                       color: pressed
-                        ? "rgba(201, 107, 49,0.2)"
-                        : "rgb(201, 107, 49)",
+                        ? opacity.naranajaClaro
+                        : opacity.naranjaClaroDeg,
+                      fontSize: pressed ? 15.1 : size.texto,
                     },
                   ]}
                 >
@@ -88,146 +78,130 @@ const EndSignIn = () => {
           </View>
         </View>
       </View>
-      <View
-        style={{
-          alignItems: "center",
-          // borderWidth: 1,
-          height: "40%",
-          // flex: 1,
-          justifyContent: "center",
-          width: "100%",
-        }}
-      >
-        <ScrollView
-          style={{
-            // borderWidth: 1,
-            // borderColor: "red",
-            overflow: "hidden",
-            width: "100%",
-          }}
-        >
-          <Text
-            style={{
-              // borderWidth: 1,
-              color: "#c96b31",
-              fontSize: RFPercentage(2.5),
-              fontWeight: "bold",
-              height: RFPercentage(5),
-              marginLeft: RFPercentage(4),
-              marginTop: RFPercentage(2),
-              textAlignVertical: "center",
-              width: "85%",
-            }}
-          >
-            Fecha de nacimiento
-          </Text>
-          <TextInput
-            style={backgroundInput(
-              isFocused === true || contraseñaInput !== ""
-                ? "white"
-                : "rgb(252, 234, 224)"
-            )}
-            onBlur={() => setIsFocused(false)}
-            onFocus={() => setIsFocused(true)}
-            onChangeText={(e) => setContraseñaInput(e)}
-            // caretHidden={true}
-          />
-          <Text
-            style={{
-              // borderWidth: 1,
-              color: "#c96b31",
-              fontWeight: "bold",
-              fontSize: RFPercentage(2.5),
-              height: RFPercentage(5),
-              marginLeft: RFPercentage(4),
-              marginTop: RFPercentage(2),
-              textAlignVertical: "center",
-              width: "85%",
-            }}
-          >
-            País
-          </Text>
-          <TextInput
-            style={backgroundInput2(
-              isFocused2 === true || contraseñaInput !== ""
-                ? "white"
-                : "rgb(252, 234, 224)"
-            )}
-            onBlur={() => setIsFocused2(false)}
-            onFocus={() => setIsFocused2(true)}
-            onChangeText={(e) => setContraseñaInput2(e)}
-            // caretHidden={true}
-          />
-          <Text
-            style={{
-              // borderWidth: 1,
-              color: "#c96b31",
-              fontWeight: "bold",
-              fontSize: RFPercentage(2.5),
-              height: RFPercentage(5),
-              marginLeft: RFPercentage(4),
-              marginTop: RFPercentage(2),
-              textAlignVertical: "center",
-              width: "85%",
-            }}
-          >
-            Ciudad
-          </Text>
-          <TextInput
-            style={backgroundInput3(
-              isFocused3 === true || contraseñaInput !== ""
-                ? "white"
-                : "rgb(252, 234, 224)"
-            )}
-            onBlur={() => setIsFocused3(false)}
-            onFocus={() => setIsFocused3(true)}
-            onChangeText={(e) => setContraseñaInput3(e)}
-            // caretHidden={true}
-          />
-        </ScrollView>
-      </View>
-      <View
-        style={{
-          alignItems: "center",
-          // borderWidth: 1,
-          height: "25%",
-          width: "100%",
-        }}
-      >
-        <View
-          style={{
-            alignItems: "center",
-            // borderWidth: 1,
-            height: "50%",
-            justifyContent: "space-between",
-            width: "100%",
-          }}
-        >
+      <View style={styles.middleView}>
+        <ScrollView style={{ overflow: "hidden", width: "100%" }}>
+          <Text style={styles.birthText}>Fecha de nacimiento</Text>
           <Pressable
-            onPress={() => goToTheEndSignIn()}
-            style={({ pressed }) => [
-              styles.siguientePressable,
+            onPress={() => setShow(true)}
+            style={[
+              styles.datePressable,
+              { backgroundColor: birth ? colors.blanco : colors.naranjaBase },
+            ]}
+          >
+            <Text>{`${birth ? moment(birth).format("DD/MM/YYYY") : ""}`}</Text>
+          </Pressable>
+
+          {show && (
+            <DateTimePicker
+              // testID="dateTimePicker"
+              value={date || Date.now()}
+              mode={"date"}
+              display="spinner"
+              onChange={(event, selectedDate) =>
+                handleChangeDate(event, selectedDate)
+              }
+            />
+          )}
+
+          <Text style={styles.countryText}>País</Text>
+          <View
+            style={[
+              styles.countryView,
               {
-                backgroundColor: pressed
-                  ? "rgba(193, 86, 39,0.2)"
-                  : "rgba(193, 86, 39,1)",
+                backgroundColor:
+                  picker === "" ? colors.naranjaBase : colors.blanco,
               },
             ]}
           >
-            <Text
+            <Picker
+              // dropdownIconColor={"white"}
+              selectedValue={picker}
               style={{
-                // borderWidth: 1,
-                color: "white",
-                fontSize: RFPercentage(3),
-                fontWeight: "bold",
-                height: "95%",
-                textAlign: "center",
-                textAlignVertical: "center",
-                width: "95%",
+                backgroundColor:
+                  picker === "" ? colors.naranjaBase : colors.blanco,
+                height: "99%",
+                width: "90%",
               }}
+              onValueChange={(itemValue, itemIndex) =>
+                setPicker(itemValue, itemIndex)
+              }
+              mode={"dropdown"}
             >
-              Finalizar
-            </Text>
+              {PICKER.map((data) => {
+                return (
+                  <Picker.Item
+                    key={data.label}
+                    label={data.label}
+                    value={data.value}
+                    color={
+                      data.value === "" ? colors.naranjaBase : colors.negro
+                    }
+                  />
+                );
+              })}
+            </Picker>
+          </View>
+          <Text style={styles.cityText}>Ciudad</Text>
+          <View
+            style={[
+              styles.cityView,
+              {
+                backgroundColor:
+                  picker2 === "" ? colors.naranjaBase : colors.blanco,
+              },
+            ]}
+          >
+            <Picker
+              // dropdownIconColor={"white"}
+              selectedValue={picker2}
+              style={{
+                backgroundColor:
+                  picker2 === "" ? colors.naranjaBase : colors.blanco,
+                height: "99%",
+                width: "90%",
+              }}
+              onValueChange={(itemValue, itemIndex) =>
+                setPicker2(itemValue, itemIndex)
+              }
+              mode={"dropdown"}
+            >
+              {PICKER.map((data) => {
+                return (
+                  <Picker.Item
+                    key={data.label}
+                    label={data.label}
+                    value={data.value}
+                    color={
+                      data.value === "" ? colors.naranjaBase : colors.negro
+                    }
+                  />
+                );
+              })}
+            </Picker>
+          </View>
+        </ScrollView>
+      </View>
+      <View style={{ alignItems: "center", height: "25%", width: "100%" }}>
+        <View style={styles.bottomView}>
+          <Pressable
+            onPress={() => goToTheInicio()}
+            style={({ pressed }) => [styles.siguientePressable]}
+          >
+            {({ pressed }) => (
+              <Text
+                style={[
+                  styles.finalizarText,
+                  {
+                    fontFamily: pressed
+                      ? font.PoppinsSemiBold
+                      : font.PoppinsLight,
+                    textDecorationLine: pressed ? "underline" : "none",
+                  },
+                ]}
+              >
+                Finalizar
+              </Text>
+            )}
           </Pressable>
         </View>
       </View>
@@ -237,6 +211,87 @@ const EndSignIn = () => {
 
 export default EndSignIn;
 const styles = StyleSheet.create({
+  birthText: {
+    // borderWidth: 1,
+    color: colors.naranja,
+    fontFamily: font.PoppinsSemiBold,
+    fontSize: size.texto,
+    // fontWeight: "bold",
+    height: RFPercentage(5),
+    marginLeft: RFPercentage(7),
+    marginTop: RFPercentage(2),
+    textAlignVertical: "center",
+    width: "77%",
+  },
+  bottomView: {
+    alignItems: "center",
+    // borderWidth: 1,
+    height: "50%",
+    justifyContent: "space-between",
+    marginTop: 20,
+    width: "100%",
+  },
+  boxImage: {
+    flex: 1,
+    height: "120%",
+    marginRight: RFPercentage(7),
+    resizeMode: "contain",
+  },
+  cityText: {
+    // borderWidth: 1,
+    color: colors.naranja,
+    fontFamily: font.PoppinsSemiBold,
+    fontSize: size.texto,
+    // fontWeight: "bold",
+    height: RFPercentage(5),
+    marginLeft: RFPercentage(7),
+    marginTop: RFPercentage(2),
+    textAlignVertical: "center",
+    width: "85%",
+  },
+  cityView: {
+    alignItems: "center",
+    borderColor: colors.borderNaranja,
+    borderRadius: 10,
+    borderWidth: 1,
+    height: RFPercentage(6),
+    justifyContent: "center",
+    marginLeft: RFPercentage(7),
+    width: "77%",
+  },
+  countryText: {
+    // borderWidth: 1,
+    color: colors.naranja,
+    fontFamily: font.PoppinsSemiBold,
+    fontSize: size.texto,
+    // fontWeight: "bold",
+    height: RFPercentage(5),
+    marginLeft: RFPercentage(7),
+    marginTop: RFPercentage(2),
+    textAlignVertical: "center",
+    width: "77%",
+  },
+  countryView: {
+    alignItems: "center",
+    borderColor: colors.borderNaranja,
+    borderRadius: 10,
+    borderWidth: 1,
+    height: RFPercentage(6),
+    justifyContent: "center",
+    marginLeft: RFPercentage(7),
+    width: "77%",
+  },
+  datePressable: {
+    alignItems: "center",
+    borderColor: colors.borderNaranja,
+    borderRadius: 10,
+    borderWidth: 1,
+    height: RFPercentage(6),
+    justifyContent: "center",
+    marginLeft: RFPercentage(7),
+    // marginBottom: RFPercentage(5),
+    width: "77%",
+  },
   facebookPressable: {
     alignItems: "center",
     // backgroundColor: "rgba(31, 122, 242,0.2)",
@@ -248,36 +303,74 @@ const styles = StyleSheet.create({
     // marginTop: RFPercentage(),
     width: "75%",
   },
+  finalizarText: {
+    // borderWidth: 1,
+    color: colors.blanco,
+    fontFamily: font.PoppinsSemiBold,
+    fontSize: size.texto,
+    // fontWeight: "bold",
+    height: "90%",
+    marginTop: 1.5,
+    textAlign: "center",
+    textAlignVertical: "center",
+    width: "95%",
+  },
+  middleView: {
+    alignItems: "center",
+    // borderWidth: 1,
+    height: "40%",
+    // flex: 1,
+    justifyContent: "center",
+    width: "100%",
+  },
   logSignPressable: {
     alignItems: "center",
-    borderColor: "#c96b31",
+    borderColor: colors.borderNaranja,
     borderLeftWidth: 2,
     height: "50%",
     justifyContent: "center",
     width: "70%",
   },
-  siguientePressable: {
-    alignItems: "center",
-    borderRadius: 20,
-    // borderWidth: 1,
-    height: "40%",
-    justifyContent: "center",
-    width: "50%",
-  },
   loginText: {
     // borderWidth: 1,
     // color: "rgb(201, 107, 49)",
-    fontSize: RFPercentage(2.5),
-    fontWeight: "bold",
+    fontSize: size.texto,
+    // fontWeight: "bold",
     height: "95%",
     textAlign: "center",
     textAlignVertical: "center",
     // textDecorationLine: "underline",
     width: "95%",
   },
+  siguientePressable: {
+    alignItems: "center",
+    backgroundColor: opacity.naranjaOscuro,
+    borderRadius: 20,
+    // borderWidth: 1,
+    height: "45%",
+    justifyContent: "center",
+    width: "50%",
+  },
+  signTopView: {
+    alignItems: "center",
+    // borderWidth: 1,
+    flexDirection: "row",
+    // flex: 1,
+    height: "30%",
+    marginLeft: RFPercentage(6),
+    width: "100%",
+  },
+  signView: {
+    alignItems: "center",
+    //   borderWidth: 1,
+    height: "95%",
+    justifyContent: "center",
+    width: "50%",
+  },
+
   olvidasteText: {
     // borderWidth: 1,
-    fontSize: RFPercentage(2.5),
+    fontSize: size.texto,
     height: "70%",
     textAlign: "center",
     textAlignVertical: "center",
@@ -286,13 +379,20 @@ const styles = StyleSheet.create({
   },
   signText: {
     // borderWidth: 1,
-    fontSize: RFPercentage(2.5),
+    fontFamily: font.PoppinsLight,
+    fontSize: size.texto,
     // fontWeight: "bold",
     height: "95%",
     textAlign: "center",
     textAlignVertical: "center",
     textDecorationLine: "underline",
     width: "95%",
+  },
+  topView: {
+    alignItems: "center",
+    flexDirection: "row",
+    height: "60%",
+    width: "100%",
   },
   viewContainer: {
     alignItems: "center",

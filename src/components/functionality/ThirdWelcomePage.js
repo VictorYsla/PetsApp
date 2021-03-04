@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet, Image, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { colors, font, opacity, size } from "../../constants/Temas";
 import Iconos from "../generals/Iconos";
 
 const ThirdWelcomePage = ({ navigation }) => {
@@ -13,89 +14,33 @@ const ThirdWelcomePage = ({ navigation }) => {
         name={"Patita"}
         height={100}
         width={100}
-        style={{
-          // borderWidth: 1,
-          marginTop: 20,
-        }}
+        style={{ marginTop: 20 }}
       />
 
-      <Text style={styles.adpotaText}>NOTIFICA</Text>
+      <Text style={styles.notificaText}>NOTIFICA</Text>
       <Text style={styles.descipcionText}>
         Cuando encuentres un animal que necesita ayuda en tu zona
       </Text>
-      <View
-        style={{
-          alignItems: "center",
-          // borderWidth: 1,
-          height: "50%",
-          justifyContent: "flex-end",
-          width: "100%",
-        }}
-      >
-        <View
-          style={{
-            // borderWidth: 1,
-            height: "98.5%",
-            position: "absolute",
-            width: "100%",
-          }}
-        >
+      <View style={styles.bottomView}>
+        <View style={styles.imageFondoView}>
           <Image
             source={require("../../../assets/images/fondo-01.png")}
             style={{ height: "100%", width: "100%" }}
           />
         </View>
-        <View
-          style={{
-            alignItems: "center",
-            // borderWidth: 1,
-            elevation: 0.1,
-            height: "100%",
-            justifyContent: "space-around",
-            width: "100%",
-          }}
-        >
+        <View style={styles.imageCircleView}>
           <Image
             source={require("../../../assets/images/la-organizacion-publico-fotos-desgarradoras___5i_A3bo6_720x0__1.jpg")}
             style={styles.gatoImagen}
           />
-          <View
-            style={{
-              alignItems: "center",
-              //   borderWidth: 1,
-              display: "flex",
-              flexDirection: "row",
-              height: "20%",
-              justifyContent: "space-around",
-              width: "60%",
-            }}
-          >
-            <View style={styles.circuloView}></View>
-            <View style={styles.circuloView}></View>
-            <View
-              style={{
-                backgroundColor: "white",
-                borderRadius: 10,
-                borderColor: "rgba(0, 0, 0,0.095)",
-                borderWidth: 2,
-                elevation: 10,
-                height: 20,
-                width: 20,
-              }}
-            ></View>
+          <View style={styles.circleViewView}>
+            <View style={styles.difCircleView}></View>
+            <View style={styles.difCircleView}></View>
+            <View style={styles.difCircleView}></View>
             <View style={styles.circuloView}></View>
           </View>
           <TouchableOpacity onPress={() => handleSkip()}>
-            <Text
-              style={{
-                color: "gray",
-                fontSize: 18,
-                marginBottom: "15%",
-                textDecorationLine: "underline",
-              }}
-            >
-              Omitir
-            </Text>
+            <Text style={styles.botonText}>Omitir</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -105,16 +50,31 @@ const ThirdWelcomePage = ({ navigation }) => {
 
 export default ThirdWelcomePage;
 const styles = StyleSheet.create({
-  adpotaText: {
-    // borderWidth: 1,
-    color: "#c14517",
-    fontWeight: "bold",
-    fontSize: 22,
+  botonText: {
+    color: "gray",
+    fontFamily: font.PoppinsLight,
+    fontSize: size.botonWelcome,
+    marginBottom: "15%",
+    textDecorationLine: "underline",
+  },
+  bottomView: {
+    alignItems: "center",
+    height: "50%",
+    justifyContent: "flex-end",
+    width: "100%",
+  },
+  circleViewView: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    height: "20%",
+    justifyContent: "space-around",
+    width: "60%",
   },
   circuloView: {
-    backgroundColor: "#c14517",
+    backgroundColor: colors.circuloPequeñoBase,
     borderRadius: 10,
-    borderColor: "rgba(0, 0, 0,0.095)",
+    borderColor: opacity.circuloPequeñoBorder,
     borderWidth: 2,
     elevation: 10,
     height: 20,
@@ -127,23 +87,47 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   descipcionText: {
-    // borderWidth: 1,
-    color: "#c96b31",
-    fontSize: 15,
+    color: colors.texto,
+    fontFamily: font.PoppinsLight,
+    fontSize: size.texto,
     textAlign: "center",
-    width: "40%",
+    width: "50%",
   },
-  perroIcono: {
-    borderWidth: 1,
-    // height: 10,
-    // width: 20,
+  difCircleView: {
+    backgroundColor: colors.difCirculoPequeñoBase,
+    borderRadius: 10,
+    borderColor: opacity.circuloPequeñoBorder,
+    borderWidth: 2,
+    elevation: 10,
+    height: 20,
+    width: 20,
   },
   gatoImagen: {
     alignSelf: "center",
     borderWidth: 5,
-    borderColor: "rgba(255, 255, 255,0.9)",
+    borderColor: colors.borderImageWelcome,
     borderRadius: 70,
     height: 140,
     width: 140,
+  },
+  notificaText: {
+    color: colors.subtitulo,
+    fontFamily: font.PoppinsBold,
+    fontSize: size.subtitulo,
+  },
+  perroIcono: {
+    borderWidth: 1,
+  },
+  imageFondoView: {
+    height: "98.5%",
+    position: "absolute",
+    width: "100%",
+  },
+  imageCircleView: {
+    alignItems: "center",
+    elevation: 0.1,
+    height: "100%",
+    justifyContent: "space-around",
+    width: "100%",
   },
 });

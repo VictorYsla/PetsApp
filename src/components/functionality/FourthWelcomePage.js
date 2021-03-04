@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, Image, ImageBackground } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { RFPercentage } from "react-native-responsive-fontsize";
-import {
-  backgroundBotonEmpecemos,
-  colorEmpecemos,
-} from "../generals/funtionColors";
-import Iconos from "../generals/Iconos";
+import { colors, font, opacity, size } from "../../constants/Temas";
+import { backgroundBotonEmpecemos } from "../generals/funtionColors";
 
 const FourthWelcomePage = ({ navigation }) => {
   const [isPress, setIsPress] = useState(false);
 
   const handleSkip = () => {
-    navigation.push("Login");
+    navigation.navigate("Login");
   };
 
   return (
@@ -22,40 +18,16 @@ const FourthWelcomePage = ({ navigation }) => {
         style={{ height: 100, width: 100 }}
       />
 
-      <Text style={styles.adpotaText}>ENCUENTRA</Text>
+      <Text style={styles.encuentraText}>ENCUENTRA</Text>
       <Text style={styles.descipcionText}>Publica tu amigo perdido.</Text>
-      <View
-        style={{
-          alignItems: "center",
-          // borderWidth: 1,
-          height: "50%",
-          justifyContent: "flex-end",
-          width: "100%",
-        }}
-      >
-        <View
-          style={{
-            // borderWidth: 1,
-            height: "105.5%",
-            position: "absolute",
-            width: "100%",
-          }}
-        >
+      <View style={styles.bottomView}>
+        <View style={styles.imageFondoView}>
           <Image
             source={require("../../../assets/images/fondo-01.png")}
             style={{ height: "100%", width: "100%" }}
           />
         </View>
-        <View
-          style={{
-            alignItems: "center",
-            // borderWidth: 1,
-            elevation: 0.1,
-            height: "100%",
-            justifyContent: "space-around",
-            width: "100%",
-          }}
-        >
+        <View style={styles.imageCircleView}>
           <Image
             source={require("../../../assets/images/perros-callejeros-744x465.jpg")}
             style={styles.perritoImagen}
@@ -71,31 +43,27 @@ const FourthWelcomePage = ({ navigation }) => {
               width: "60%",
             }}
           >
-            <View style={styles.circuloView}></View>
-            <View style={styles.circuloView}></View>
-            <View style={styles.circuloView}></View>
-            <View
-              style={{
-                backgroundColor: "white",
-                borderRadius: 10,
-                borderColor: "rgba(0, 0, 0,0.095)",
-                borderWidth: 2,
-                elevation: 10,
-                height: 20,
-                width: 20,
-              }}
-            ></View>
+            <View style={styles.difCircleView}></View>
+            <View style={styles.difCircleView}></View>
+            <View style={styles.difCircleView}></View>
+            <View style={styles.difCircleView}></View>
           </View>
           <TouchableOpacity
             style={backgroundBotonEmpecemos(
-              isPress === true ? "rgb(252, 234, 224)" : "white"
+              isPress === true ? colors.naranjaBase : colors.blancoBase
             )}
             onPress={() => handleSkip()}
             onPressOut={() => setIsPress(false)}
             onPressIn={() => setIsPress(true)}
           >
             <Text
-              style={colorEmpecemos(isPress === true ? "white" : "#c14517")}
+              style={{
+                color: isPress === true ? colors.blancoBase : colors.texto,
+                fontFamily: font.PoppinsBold,
+                fontSize: size.botonWelcome,
+                marginTop: 2,
+                textAlignVertical: "bottom",
+              }}
             >
               Empecemos
             </Text>
@@ -108,16 +76,24 @@ const FourthWelcomePage = ({ navigation }) => {
 
 export default FourthWelcomePage;
 const styles = StyleSheet.create({
-  adpotaText: {
-    // borderWidth: 1,
-    color: "#c14517",
-    fontWeight: "bold",
-    fontSize: 22,
+  bottomView: {
+    alignItems: "center",
+    height: "50%",
+    justifyContent: "flex-end",
+    width: "100%",
+  },
+  circleViewView: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    height: "20%",
+    justifyContent: "space-around",
+    width: "60%",
   },
   circuloView: {
-    backgroundColor: "#c14517",
+    backgroundColor: colors.circuloPequeñoBase,
     borderRadius: 10,
-    borderColor: "rgba(0, 0, 0,0.095)",
+    borderColor: opacity.circuloPequeñoBorder,
     borderWidth: 2,
     elevation: 10,
     height: 20,
@@ -129,12 +105,29 @@ const styles = StyleSheet.create({
     paddingTop: 23,
     justifyContent: "space-between",
   },
+  difCircleView: {
+    backgroundColor: colors.difCirculoPequeñoBase,
+    borderRadius: 10,
+    borderColor: opacity.circuloPequeñoBorder,
+    borderWidth: 2,
+    elevation: 10,
+    height: 20,
+    width: 20,
+  },
   descipcionText: {
     // borderWidth: 1,
-    color: "#c96b31",
-    fontSize: 15,
+    color: colors.texto,
+    fontFamily: font.PoppinsLight,
+    fontSize: size.texto,
     textAlign: "center",
     width: "40%",
+  },
+  encuentraText: {
+    // borderWidth: 1,
+    color: colors.subtitulo,
+    fontFamily: font.PoppinsBold,
+    fontSize: size.subtitulo,
+    // fontWeight: "bold",
   },
   perroIcono: {
     borderWidth: 1,
@@ -144,9 +137,22 @@ const styles = StyleSheet.create({
   perritoImagen: {
     alignSelf: "center",
     borderWidth: 5,
-    borderColor: "rgba(255, 255, 255,0.9)",
+    borderColor: colors.borderImageWelcome,
     borderRadius: 70,
     height: 140,
     width: 140,
+  },
+  imageCircleView: {
+    alignItems: "center",
+    // borderWidth: 1,
+    elevation: 0.1,
+    height: "100%",
+    justifyContent: "space-around",
+    width: "100%",
+  },
+  imageFondoView: {
+    height: "106%",
+    position: "absolute",
+    width: "100%",
   },
 });

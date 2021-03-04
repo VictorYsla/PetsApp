@@ -155,3 +155,86 @@ export const SAVED = [
     title: " SAVED11",
   },
 ];
+
+export const PICKER = [
+  {
+    value: "",
+    label: "Ninguno",
+  },
+  {
+    value: "Item2",
+    label: " Item2",
+  },
+  {
+    value: "Item3",
+    label: " Item3",
+  },
+  {
+    value: "Item4",
+    label: " Item4",
+  },
+  {
+    value: "Item5",
+    label: " Item5",
+  },
+  {
+    value: "Item6",
+    label: " Item6",
+  },
+  {
+    value: "Item7",
+    label: " Item7",
+  },
+  {
+    value: "Item8",
+    label: " Item8",
+  },
+  {
+    value: "Item9",
+    label: " Item9",
+  },
+  {
+    value: "Item10",
+    label: " Item10",
+  },
+  {
+    value: "Item11",
+    label: " Item11",
+  },
+];
+{
+  /* <Pressable
+  onPress={() => goToTheInicio()}
+  style={({ pressed }) => [
+    styles.facebookPressable,
+    {
+      backgroundColor: pressed
+        ? "rgba(31, 122, 242,0.2)"
+        : "rgba(31, 122, 242,1)",
+    },
+  ]}
+>
+  <Icon
+    name="facebook"
+    size={RFPercentage(4)}
+    color="white"
+    style={{ marginTop: 1.5 }}
+  />
+  <Text
+    style={{
+      // borderWidth: 1,
+      color: "white",
+      fontFamily: font.PoppinsSemiBold,
+      fontSize: RFPercentage(2.5),
+      // fontWeight: "bold",
+      height: "80%",
+      marginTop: 1.5,
+      textAlign: "center",
+      textAlignVertical: "bottom",
+      width: "85%",
+    }}
+  >
+    Continuar con Facebook
+  </Text>
+</Pressable> */
+}

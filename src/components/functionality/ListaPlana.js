@@ -25,8 +25,8 @@ export default ListaPlana;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.colorDeFondoBaseDeListaVertical,
-    height: "90%",
+    backgroundColor: colors.blanco,
+    height: "85%",
     width: "100%",
   },
 

@@ -23,6 +23,35 @@ import EndSignIn from "./components/screens/EndSignIn";
 const Stack = createStackNavigator();
 
 const Navigate = () => {
+  const config = {
+    animation: "spring",
+    config: {
+      stiffness: 1000,
+      damping: 500,
+      mass: 3,
+      overshootClamping: true,
+      restDisplacementThreshold: 0.01,
+      restSpeedThreshold: 0.01,
+    },
+  };
+
+  const verticalAnimation = {
+    cardStyleInterpolator: ({ current, layouts }) => {
+      return {
+        cardStyle: {
+          transform: [
+            {
+              translateY: current.progress.interpolate({
+                inputRange: [0, 1],
+                outputRange: [layouts.screen.height, 0],
+              }),
+            },
+          ],
+        },
+      };
+    },
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -32,8 +61,22 @@ const Navigate = () => {
         initialRouteName="WelcomePage"
       >
         <Stack.Screen name="WelcomePage" component={WelcomePage} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            gestureDirection: "vertical-inverted",
+            transitionSpec: { open: config, close: config },
+          }}
+        />
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={{
+            gestureDirection: "vertical-inverted",
+            transitionSpec: { open: config, close: config },
+          }}
+        />
         <Stack.Screen name="EndSignIn" component={EndSignIn} />
         <Stack.Screen name="Inicio" component={Inicio} />
         <Stack.Screen name="Search" component={Search} />

@@ -1,41 +1,112 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image, Pressable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { colors, font, size } from "../../constants/Temas";
+import { colors, font, margin, size } from "../../constants/Temas";
 
 const PublishedContent = ({ navigation }) => {
   const goToTheComments = () => {
     navigation.push("Comments", navigation);
   };
 
+  console.log("RF:", RFPercentage(0.8));
   return (
     <View style={styles.container}>
       <View style={styles.itemContainer}>
         <View style={styles.topContainer}>
-          <View style={styles.stateContainer}>
-            <Text style={styles.stateText}>State</Text>
-          </View>
-          <TouchableOpacity onPress={goToTheComments}>
-            <View style={styles.imageContainer}>
-              <Text>Image</Text>
-            </View>
-          </TouchableOpacity>
+          <Pressable style={styles.imagePressable}>
+            <Image
+              source={require("../../../assets/images/adorable-1228456_960_720.jpg")}
+              style={{
+                borderTopLeftRadius: RFPercentage(0.8),
+                borderTopRightRadius: RFPercentage(0.8),
+                resizeMode: "cover",
+                height: "100%",
+                width: "100%",
+              }}
+            />
+            <Pressable
+              style={({ pressed }) => [
+                styles.overlay,
+                {
+                  backgroundColor: pressed
+                    ? "rgba(0,0,0,0.5)"
+                    : "rgba(255,255,255,0.1)",
+                },
+              ]}
+              onPress={() => goToTheComments()}
+            />
+          </Pressable>
           <View style={styles.barContainer}>
-            <TouchableOpacity style={styles.touchableHeart}>
-              <Icon name="heart" color={colors.colorIconoCorazon} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.touchableShare}>
-              <Icon name="share" color={colors.colorIconoCompartir} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.touchableClock}>
+            <Pressable
+              style={({ pressed }) => [
+                styles.sharePressable,
+                {
+                  backgroundColor: pressed
+                    ? "rgba(255,255,255,0.5)"
+                    : "rgb(179, 179, 179)",
+                },
+              ]}
+            >
+              <Icon name="share-alt" color={colors.colorIconoCompartir} />
+              <Text
+                style={{
+                  // borderWidth: 1,
+                  fontFamily: font.PoppinsLight,
+                  height: "90%",
+                  textAlign: "center",
+                  textAlignVertical: "center",
+                  width: "50%",
+                }}
+              >
+                Compartir
+              </Text>
+            </Pressable>
+            <Pressable
+              style={({ pressed }) => [
+                styles.heartPressable,
+                {
+                  backgroundColor: pressed
+                    ? "rgba(255,255,255,0.5)"
+                    : "rgb(179, 179, 179)",
+                },
+              ]}
+            >
+              <Icon
+                name="heart-o"
+                color={"red"}
+                style={{
+                  borderLeftWidth: 1,
+                  height: "80%",
+                  textAlign: "center",
+                  textAlignVertical: "center",
+                  width: "40%",
+                }}
+              />
+              <Text
+                style={{
+                  // borderWidth: 1,
+                  fontFamily: font.PoppinsLight,
+                  height: "100%",
+                  textAlign: "left",
+                  textAlignVertical: "center",
+                  width: "60%",
+                }}
+              >
+                Me gusta
+              </Text>
+            </Pressable>
+            {/* <TouchableOpacity style={styles.touchableClock}>
               <Icon name="clock-o" color={colors.colorIconoReloj} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
         <View style={styles.botContainer}>
-          <Text style={styles.descriptionText}>Description</Text>
-          <Text style={styles.agradecimientoText}>{"S/"}</Text>
+          <Text style={styles.descriptionText}>
+            Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet,
+          </Text>
+          <Text style={styles.agradecimientoText}>Disponible</Text>
         </View>
       </View>
     </View>
@@ -47,25 +118,34 @@ export default PublishedContent;
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    // borderWidth: 4,
+    flex: 1,
+
+    // marginVertical: RFPercentage(2), //esto
   },
 
   itemContainer: {
     alignItems: "center",
     borderRadius: 15,
+    // borderWidth: 1,
     backgroundColor: colors.colorDeFondoBaseDeItemListaVertical,
-    marginTop: "0.5%",
-    marginBottom: "0.5%",
+    height: RFPercentage(46),
+    marginVertical: RFPercentage(2),
     textAlign: "center",
-    width: "95%",
+    width: "90%",
   },
 
   topContainer: {
+    alignItems: "center",
+    borderColor: "rgb(193, 70, 24)",
     borderRadius: 5,
-    borderWidth: 1,
+    // borderTopWidth: 1,
+    // borderLeftWidth: 1,
+    // borderRightWidth: 1,
+    height: RFPercentage(30),
+    justifyContent: "center",
     marginVertical: "2.5%",
+    marginBottom: RFPercentage(0.1),
     width: "90%",
   },
 
@@ -84,30 +164,46 @@ const styles = StyleSheet.create({
     width: "20%",
   },
 
-  imageContainer: {
-    alignItems: "center",
+  imagePressable: {
+    // alignItems: "center",
     // borderWidth: 1,
-    paddingVertical: "15%",
+    borderTopLeftRadius: RFPercentage(0.8),
+    borderTopRightRadius: RFPercentage(0.8),
+    height: "88%",
+    width: "100%",
   },
 
   barContainer: {
-    borderTopWidth: 1,
+    backgroundColor: "rgb(179, 179, 179)",
+    borderBottomLeftRadius: RFPercentage(0.7),
+    borderBottomRightRadius: RFPercentage(0.7),
+    // borderWidth: 1,
     display: "flex",
     flexDirection: "row",
+    height: "12%",
+    width: "100%",
   },
 
-  touchableHeart: {
-    borderRadius: 1,
+  heartPressable: {
+    alignItems: "center",
+    borderBottomRightRadius: RFPercentage(0.7),
+    // borderRadius: 1,
     // borderWidth: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    flexDirection: "row",
+    height: "100%",
+    justifyContent: "center",
+    width: "40%",
   },
 
-  touchableShare: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    paddingHorizontal: 92.9,
-    paddingVertical: 10,
+  sharePressable: {
+    alignItems: "center",
+    borderBottomLeftRadius: RFPercentage(0.7),
+    // borderLeftWidth: 1,
+    // borderRightWidth: 1,
+    flexDirection: "row",
+    height: "100%",
+    justifyContent: "center",
+    width: "60%",
   },
 
   touchableClock: {
@@ -117,35 +213,46 @@ const styles = StyleSheet.create({
   },
 
   botContainer: {
-    display: "flex",
-    flexDirection: "row",
+    alignItems: "center",
+    borderBottomLeftRadius: RFPercentage(2),
+    borderBottomRightRadius: RFPercentage(2),
     // borderWidth: 1,
-    // justifyContent: "space-evenly",
-    marginVertical: 10,
-    width: "90%",
+    flexDirection: "row",
+    height: RFPercentage(10),
+    justifyContent: "center",
+    marginVertical: RFPercentage(1.5),
+    width: "100%",
   },
 
   descriptionText: {
-    borderWidth: 1,
+    backgroundColor: "rgb(196, 82, 32)",
+    borderBottomLeftRadius: RFPercentage(2),
+    // borderWidth: 1,
+    fontFamily: font.PoppinsLight,
+    fontSize: RFPercentage(2.5),
     fontWeight: "normal",
-    fontFamily: font.letrasPequeñas,
-    fontSize: size.letrasPequeñas,
-    height: 70,
-    paddingVertical: "5%",
+    // fontFamily: font.letrasPequeñas,
+    height: "100%",
     textAlign: "center",
     textAlignVertical: "center",
-    width: "75%",
+    width: "70%",
   },
 
   agradecimientoText: {
+    backgroundColor: "rgb(140, 198, 63)",
+    borderBottomRightRadius: RFPercentage(2),
+    // borderWidth: 1,
     display: "flex",
+    fontFamily: font.PoppinsLight,
     flexDirection: "column",
-    borderWidth: 1,
-    height: 70,
-    marginLeft: "5%",
-    paddingVertical: "5%",
+    height: "100%",
     textAlign: "center",
     textAlignVertical: "center",
-    width: "20%",
+    width: "30%",
+  },
+
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
 });

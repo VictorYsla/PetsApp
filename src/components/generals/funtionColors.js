@@ -1,4 +1,5 @@
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { colors } from "../../constants/Temas";
 
 // export const backgroundInput = (boolInput, contraseñaInput) => {
 //   if (boolInput === true || contraseñaInput !== "") {
@@ -28,39 +29,70 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 export const backgroundInput = (parametro) => {
   return {
     backgroundColor: parametro,
-    borderColor: "#c96b31",
-    borderRadius: 20,
+    borderColor: colors.borderInput,
+    borderRadius: 10,
     borderWidth: 1,
-    height: RFPercentage(5),
-    marginLeft: RFPercentage(4),
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(6.5),
     // marginBottom: RFPercentage(5),
-    width: "85%",
+    paddingHorizontal: 15,
+    width: "77%",
   };
 };
 
 export const backgroundInput2 = (parametro) => {
   return {
     backgroundColor: parametro,
-    borderColor: "#c96b31",
-    borderRadius: 20,
+    borderColor: colors.borderInput,
+    borderRadius: 10,
     borderWidth: 1,
-    height: RFPercentage(5),
-    marginLeft: RFPercentage(4),
-    // marginBottom: RFPercentage(15),
-    width: "85%",
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(6.5),
+    marginBottom: RFPercentage(15),
+    paddingHorizontal: 15,
+    width: "77%",
   };
 };
 
 export const backgroundInput3 = (parametro) => {
   return {
     backgroundColor: parametro,
-    borderColor: "#c96b31",
-    borderRadius: 20,
+    borderColor: colors.borderInput,
+    borderRadius: 10,
     borderWidth: 1,
-    height: RFPercentage(5),
-    marginLeft: RFPercentage(4),
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(6.5),
     marginBottom: RFPercentage(15),
-    width: "85%",
+    paddingHorizontal: 15,
+    width: "77%",
+  };
+};
+
+export const backgroundInputNo = (parametro) => {
+  return {
+    backgroundColor: parametro,
+    borderColor: colors.borderInput,
+    borderRadius: 10,
+    borderWidth: 1,
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(6.5),
+    // marginBottom: RFPercentage(15),
+    paddingHorizontal: 15,
+    width: "77%",
+  };
+};
+
+export const backgroundInputConfirma = (parametro) => {
+  return {
+    backgroundColor: parametro,
+    borderColor: colors.borderInput,
+    borderRadius: 10,
+    borderWidth: 1,
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(6.5),
+    marginBottom: RFPercentage(25),
+    paddingHorizontal: 15,
+    width: "77%",
   };
 };
 

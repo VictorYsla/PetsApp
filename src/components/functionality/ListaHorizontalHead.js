@@ -2,9 +2,17 @@ import React from "react";
 import { Text, View, StyleSheet, Image, Pressable } from "react-native";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { colors, font, margin, opacity } from "../../constants/Temas";
+import {
+  colors,
+  font,
+  gradient,
+  margin,
+  opacity,
+  size,
+} from "../../constants/Temas";
 import { HISTORY } from "./Trash";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { LinearGradient } from "expo-linear-gradient";
 
 const ListaHorizontalHead = ({ navigation }) => {
   const handleToSuccessHistory = () => {
@@ -28,41 +36,52 @@ const ListaHorizontalHead = ({ navigation }) => {
             style={styles.successPressable}
             onPress={() => handleToSuccessHistory()}
           >
-            <View
+            <LinearGradient
               style={{
-                // borderWidth: 1,
-                alignItems: "flex-end",
-                height: "50%",
-                justifyContent: "flex-end",
-                width: "80%",
-              }}
-            >
-              <Image
-                source={require("../../../assets/images/logo_blanco.png")}
-                style={{
-                  // borderTopLeftRadius: RFPercentage(0.8),
-                  // borderTopRightRadius: RFPercentage(0.8),
-                  resizeMode: "contain",
-                  position: "absolute",
-                  height: "100%",
-                  width: "100%",
-                }}
-              />
-              <Icon name="plus-circle" color="white" size={RFPercentage(3.8)} />
-            </View>
-            <Text
-              style={{
-                // borderWidth: 1,
-                fontFamily: font.PoppinsLight,
-                fontSize: RFPercentage(2),
-                height: "30%",
-                textAlign: "center",
-                textAlignVertical: "center",
+                alignItems: "center",
+                borderRadius: RFPercentage(1),
+                height: "100%",
+                justifyContent: "center",
                 width: "100%",
               }}
+              colors={gradient.naranja}
             >
-              Añadir historia
-            </Text>
+              <View
+                style={{
+                  // borderWidth: 1,
+                  alignItems: "center",
+                  height: "60%",
+                  justifyContent: "center",
+                  width: "90%",
+                }}
+              >
+                <Image
+                  source={require("../../../assets/images/mockups-09.png")}
+                  style={{
+                    // borderTopLeftRadius: RFPercentage(0.8),
+                    // borderTopRightRadius: RFPercentage(0.8),
+                    resizeMode: "contain",
+                    position: "absolute",
+                    height: "100%",
+                    width: "100%",
+                  }}
+                />
+              </View>
+              <Text
+                style={{
+                  // borderWidth: 1,
+                  color: colors.blanco,
+                  fontFamily: font.PoppinsLight,
+                  fontSize: size.pequeño,
+                  height: "30%",
+                  textAlign: "center",
+                  textAlignVertical: "center",
+                  width: "100%",
+                }}
+              >
+                Añadir historia
+              </Text>
+            </LinearGradient>
           </Pressable>
         }
         keyExtractor={(item) => item.id}
@@ -80,7 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: opacity.naranajaSuperClaro,
     borderColor: "rgb(201, 106, 49)",
     borderRadius: RFPercentage(1),
-    borderWidth: 1,
+    // borderWidth: 1,
     height: RFPercentage(20),
     marginHorizontal: 5,
     marginTop: RFPercentage(1),
@@ -92,7 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(196, 83, 33)",
     borderColor: "rgb(196, 83, 33)",
     borderRadius: RFPercentage(1),
-    borderWidth: 1,
+    // borderWidth: 1,
     height: RFPercentage(20),
     justifyContent: "center",
     marginHorizontal: 2.5,

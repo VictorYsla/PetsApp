@@ -85,6 +85,7 @@ export const font = {
 
 export const size = {
   botonWelcome: 18,
+  pequeño: 12,
   texto: 15,
   titulo: 30,
   subtitulo: 22,
@@ -93,4 +94,8 @@ export const size = {
 export const margin = {
   left: RFPercentage(3),
   Right: RFPercentage(3),
+};
+
+export const gradient = {
+  naranja: ["rgb(207,115,73)", "rgb(216,162,139)", "rgb(192,68,29)"],
 };

@@ -1,26 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet, Image, Pressable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { colors, font, margin, size } from "../../constants/Temas";
+import { colors, font, gradient, margin, size } from "../../constants/Temas";
+import { LinearGradient } from "expo-linear-gradient";
 
 const PublishedContent = ({ navigation }) => {
   const goToTheComments = () => {
     navigation.push("Comments", navigation);
   };
 
-  console.log("RF:", RFPercentage(0.8));
+  const [heart, setHeart] = useState(false);
+
+  console.log("RF:", RFPercentage(0.7));
   return (
     <View style={styles.container}>
       <View style={styles.itemContainer}>
         <View style={styles.topContainer}>
           <Pressable style={styles.imagePressable}>
             <Image
-              source={require("../../../assets/images/adorable-1228456_960_720.jpg")}
+              source={require("../../../assets/images/requisitos-para-adoptar-un-perro.jpg")}
               style={{
-                borderTopLeftRadius: RFPercentage(0.8),
-                borderTopRightRadius: RFPercentage(0.8),
+                borderTopLeftRadius: RFPercentage(1),
+                borderTopRightRadius: RFPercentage(1),
                 resizeMode: "cover",
                 height: "100%",
                 width: "100%",
@@ -33,6 +36,8 @@ const PublishedContent = ({ navigation }) => {
                   backgroundColor: pressed
                     ? "rgba(0,0,0,0.5)"
                     : "rgba(255,255,255,0.1)",
+                  borderTopLeftRadius: RFPercentage(1),
+                  borderTopRightRadius: RFPercentage(1),
                 },
               ]}
               onPress={() => goToTheComments()}
@@ -49,14 +54,22 @@ const PublishedContent = ({ navigation }) => {
                 },
               ]}
             >
-              <Icon name="share-alt" color={colors.colorIconoCompartir} />
+              <Icon
+                name="share-alt"
+                color={colors.colorIconoCompartir}
+                // style={{ borderWidth: 1 }}
+                size={RFPercentage(3)}
+              />
               <Text
                 style={{
                   // borderWidth: 1,
                   fontFamily: font.PoppinsLight,
+                  fontSize: size.pequeño,
                   height: "90%",
+                  paddingTop: 1.5,
                   textAlign: "center",
                   textAlignVertical: "center",
+
                   width: "50%",
                 }}
               >
@@ -72,41 +85,88 @@ const PublishedContent = ({ navigation }) => {
                     : "rgb(179, 179, 179)",
                 },
               ]}
+              onPressIn={() => setHeart(true)}
             >
               <Icon
-                name="heart-o"
+                name={heart ? "heart" : "heart-o"}
                 color={"red"}
-                style={{
-                  borderLeftWidth: 1,
-                  height: "80%",
-                  textAlign: "center",
-                  textAlignVertical: "center",
-                  width: "40%",
-                }}
+                style={styles.iconHeart}
               />
+
               <Text
                 style={{
                   // borderWidth: 1,
                   fontFamily: font.PoppinsLight,
+                  fontSize: size.pequeño,
                   height: "100%",
                   textAlign: "left",
                   textAlignVertical: "center",
                   width: "60%",
                 }}
               >
-                Me gusta
+                0 Me gusta
               </Text>
             </Pressable>
             {/* <TouchableOpacity style={styles.touchableClock}>
               <Icon name="clock-o" color={colors.colorIconoReloj} />
             </TouchableOpacity> */}
           </View>
+          <Text
+            style={[
+              styles.overlay,
+              {
+                backgroundColor: "#e3e5e0",
+                borderTopLeftRadius: 10,
+                borderBottomLeftRadius: 10,
+                // borderWidth: 1,
+                fontFamily: font.PoppinsLight,
+                fontSize: size.pequeño,
+                height: "20%",
+                marginLeft: RFPercentage(28),
+                marginTop: RFPercentage(2),
+                textAlignVertical: "center",
+                paddingLeft: 10,
+              },
+            ]}
+          >
+            15/02/2021
+          </Text>
         </View>
         <View style={styles.botContainer}>
-          <Text style={styles.descriptionText}>
-            Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet,
-          </Text>
+          <LinearGradient
+            colors={gradient.naranja}
+            style={{
+              borderBottomLeftRadius: RFPercentage(2),
+              height: "100%",
+              width: "65%",
+            }}
+          >
+            <Text style={styles.descriptionText}>
+              Encontré este perro, lo tengo en casa y desearía alimentarlo
+              mientras encuentra a su dueño
+            </Text>
+          </LinearGradient>
           <Text style={styles.agradecimientoText}>Disponible</Text>
+        </View>
+        <View
+          style={[
+            styles.overlay,
+            {
+              backgroundColor: "transparent",
+              // borderWidth: 1,
+              height: "20%",
+              width: "18%",
+            },
+          ]}
+        >
+          <Image
+            source={require("../../../assets/images/icon-10.png")}
+            style={{
+              resizeMode: "stretch",
+              height: "100%",
+              width: "100%",
+            }}
+          />
         </View>
       </View>
     </View>
@@ -135,14 +195,23 @@ const styles = StyleSheet.create({
     width: "90%",
   },
 
+  iconHeart: {
+    borderLeftWidth: 1,
+    // height: "80%",
+    textAlign: "center",
+    textAlignVertical: "center",
+    width: "25%",
+  },
+
   topContainer: {
     alignItems: "center",
     borderColor: "rgb(193, 70, 24)",
-    borderRadius: 5,
+    borderRadius: RFPercentage(0.7),
+    // borderWidth: 1,
     // borderTopWidth: 1,
     // borderLeftWidth: 1,
     // borderRightWidth: 1,
-    height: RFPercentage(30),
+    height: RFPercentage(25),
     justifyContent: "center",
     marginVertical: "2.5%",
     marginBottom: RFPercentage(0.1),
@@ -167,42 +236,43 @@ const styles = StyleSheet.create({
   imagePressable: {
     // alignItems: "center",
     // borderWidth: 1,
-    borderTopLeftRadius: RFPercentage(0.8),
-    borderTopRightRadius: RFPercentage(0.8),
-    height: "88%",
+    borderTopLeftRadius: RFPercentage(1),
+    borderTopRightRadius: RFPercentage(1),
+    height: "80%",
     width: "100%",
   },
 
   barContainer: {
     backgroundColor: "rgb(179, 179, 179)",
-    borderBottomLeftRadius: RFPercentage(0.7),
-    borderBottomRightRadius: RFPercentage(0.7),
+    borderBottomLeftRadius: RFPercentage(1),
+    borderBottomRightRadius: RFPercentage(1),
     // borderWidth: 1,
     display: "flex",
     flexDirection: "row",
-    height: "12%",
+    height: "15%",
     width: "100%",
   },
 
   heartPressable: {
     alignItems: "center",
-    borderBottomRightRadius: RFPercentage(0.7),
+    borderBottomRightRadius: RFPercentage(1),
     // borderRadius: 1,
     // borderWidth: 1,
     flexDirection: "row",
     height: "100%",
-    justifyContent: "center",
+    // justifyContent: "center",
     width: "40%",
   },
 
   sharePressable: {
     alignItems: "center",
-    borderBottomLeftRadius: RFPercentage(0.7),
+    borderBottomLeftRadius: RFPercentage(1),
     // borderLeftWidth: 1,
     // borderRightWidth: 1,
     flexDirection: "row",
     height: "100%",
-    justifyContent: "center",
+    // justifyContent: "center",
+    paddingLeft: 10,
     width: "60%",
   },
 
@@ -218,37 +288,38 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: RFPercentage(2),
     // borderWidth: 1,
     flexDirection: "row",
-    height: RFPercentage(10),
+    height: RFPercentage(8),
     justifyContent: "center",
-    marginVertical: RFPercentage(1.5),
+    // marginVertical: RFPercentage(1.5),
     width: "100%",
   },
 
   descriptionText: {
-    backgroundColor: "rgb(196, 82, 32)",
+    // backgroundColor: "rgb(196, 82, 32)",
     borderBottomLeftRadius: RFPercentage(2),
     // borderWidth: 1,
+    color: colors.blanco,
     fontFamily: font.PoppinsLight,
-    fontSize: RFPercentage(2.5),
-    fontWeight: "normal",
-    // fontFamily: font.letrasPequeñas,
+    fontSize: size.pequeño,
     height: "100%",
     textAlign: "center",
     textAlignVertical: "center",
-    width: "70%",
+    width: "100%",
   },
 
   agradecimientoText: {
     backgroundColor: "rgb(140, 198, 63)",
     borderBottomRightRadius: RFPercentage(2),
     // borderWidth: 1,
+    color: colors.blanco,
     display: "flex",
     fontFamily: font.PoppinsLight,
+    fontSize: size.texto,
     flexDirection: "column",
     height: "100%",
     textAlign: "center",
     textAlignVertical: "center",
-    width: "30%",
+    width: "35%",
   },
 
   overlay: {

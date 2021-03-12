@@ -1,22 +1,26 @@
-import React from "react";
-import { View, StyleSheet, Text, Pressable, Image } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text, Pressable, Image, Modal } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { colors, font, size } from "../../constants/Temas";
 import ListaPlana from "../functionality/ListaPlana";
-import IconosPequeños from "../generals/IconosPequeños";
+import SearchModal from "../functionality/modals/SearchModal";
+import UserData from "../functionality/modals/UserData";
 
 const Inicio = ({ navigation }) => {
-  const openSearch = () => {
-    navigation.push("Search", navigation);
+  const [userModal, setUserModal] = useState(false);
+  const [searchModal, setSearchModal] = useState(false);
+
+  const openSearchModal = () => {
+    setSearchModal(true);
   };
 
-  const handleToUser = () => {
-    navigation.push("User", navigation);
+  const openUserModal = () => {
+    setUserModal(true);
   };
 
-  console.log("RF:", RFPercentage(12));
+  // console.log("RF:", RFPercentage(12));
 
   return (
     <View style={styles.viewContainer}>
@@ -30,17 +34,8 @@ const Inicio = ({ navigation }) => {
                 : "rgb(197, 87, 35)",
             },
           ]}
-          onPress={() => handleToUser()}
+          onPress={() => openUserModal()}
         >
-          {/* <IconosPequeños
-            name={"caraperro"}
-            style={{
-              backgroundColor: "white",
-              // borderWidth: 1,
-              borderRadius: RFPercentage(100),
-              marginTop: RFPercentage(2),
-            }}
-          /> */}
           <Image
             source={require("../../../assets/images/mockups-04.png")}
             style={{
@@ -51,23 +46,6 @@ const Inicio = ({ navigation }) => {
               marginRight: 30,
             }}
           />
-
-          {/* <Text
-            style={{
-              // borderWidth: 1,
-              color: "white",
-              // flex: 1,
-              fontFamily: font.PoppinsLight,
-              fontSize: RFPercentage(1.7),
-              height: "21%",
-              // marginTop: RFPercentage(1),
-              textAlign: "center",
-              textAlignVertical: "bottom",
-              width: "100%",
-            }}
-          >
-            Perfil
-          </Text> */}
         </Pressable>
 
         <Text style={styles.title}>
@@ -88,7 +66,7 @@ const Inicio = ({ navigation }) => {
             name="search"
             size={18}
             style={styles.searchIcon}
-            onPress={openSearch}
+            onPress={() => openSearchModal()}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.bellTouchable}>
@@ -96,6 +74,15 @@ const Inicio = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <ListaPlana navigation={navigation} />
+      <Modal
+        visible={userModal}
+        animationType="slide"
+        statusBarTranslucent={true}
+        transparent={true}
+      >
+        <UserData setUserModal={setUserModal} />
+      </Modal>
+      <SearchModal setSearchModal={setSearchModal} searchModal={searchModal} />
     </View>
   );
 };

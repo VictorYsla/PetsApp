@@ -1,6 +1,13 @@
 import { Picker } from "@react-native-picker/picker";
-import React, { useState } from "react";
-import { Text, View, StyleSheet, Image, Pressable } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  Pressable,
+  Keyboard,
+} from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { colors, font, opacity, size } from "../../constants/Temas";
@@ -42,7 +49,7 @@ const EndSignIn = ({ navigation }) => {
     <View style={styles.viewContainer}>
       <View style={{ alignItems: "center", flex: 1, width: "100%" }}>
         <View style={styles.topView}>
-          <Pressable onPress={() => goTotheSignIn()}>
+          {/* <Pressable onPress={() => goTotheSignIn()}>
             {({ pressed }) => (
               <Iconos
                 name={"Regreso"}
@@ -50,7 +57,7 @@ const EndSignIn = ({ navigation }) => {
                 height={"100%"}
               />
             )}
-          </Pressable>
+          </Pressable> */}
           <Image
             source={require("../../../assets/images/logo_blanco.png")}
             style={styles.boxImage}
@@ -85,7 +92,10 @@ const EndSignIn = ({ navigation }) => {
             onPress={() => setShow(true)}
             style={[
               styles.datePressable,
-              { backgroundColor: birth ? colors.blanco : colors.naranjaBase },
+              {
+                backgroundColor: birth ? colors.blanco : colors.naranjaBase,
+                borderWidth: birth ? 1 : 0,
+              },
             ]}
           >
             <Text>{`${birth ? moment(birth).format("DD/MM/YYYY") : ""}`}</Text>
@@ -110,6 +120,7 @@ const EndSignIn = ({ navigation }) => {
               {
                 backgroundColor:
                   picker === "" ? colors.naranjaBase : colors.blanco,
+                borderWidth: picker === "" ? 0 : 1,
               },
             ]}
           >
@@ -148,6 +159,7 @@ const EndSignIn = ({ navigation }) => {
               {
                 backgroundColor:
                   picker2 === "" ? colors.naranjaBase : colors.blanco,
+                borderWidth: picker2 === "" ? 0 : 1,
               },
             ]}
           >
@@ -213,8 +225,8 @@ export default EndSignIn;
 const styles = StyleSheet.create({
   birthText: {
     // borderWidth: 1,
-    color: colors.naranja,
-    fontFamily: font.PoppinsSemiBold,
+    color: opacity.textoDeg,
+    fontFamily: font.PoppinsLight,
     fontSize: size.texto,
     // fontWeight: "bold",
     height: RFPercentage(5),
@@ -234,13 +246,13 @@ const styles = StyleSheet.create({
   boxImage: {
     flex: 1,
     height: "120%",
-    marginRight: RFPercentage(7),
+    // marginRight: RFPercentage(),
     resizeMode: "contain",
   },
   cityText: {
     // borderWidth: 1,
-    color: colors.naranja,
-    fontFamily: font.PoppinsSemiBold,
+    color: opacity.textoDeg,
+    fontFamily: font.PoppinsLight,
     fontSize: size.texto,
     // fontWeight: "bold",
     height: RFPercentage(5),
@@ -261,8 +273,8 @@ const styles = StyleSheet.create({
   },
   countryText: {
     // borderWidth: 1,
-    color: colors.naranja,
-    fontFamily: font.PoppinsSemiBold,
+    color: opacity.textoDeg,
+    fontFamily: font.PoppinsLight,
     fontSize: size.texto,
     // fontWeight: "bold",
     height: RFPercentage(5),

@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Text, View, StyleSheet, Pressable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ListaHorizontalHead from "./ListaHorizontalHead";
 import { colors, font, size } from "../../constants/Temas";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import PostModal from "./modals/PostModal";
 
 const HeaderListaPlana = ({ navigation }) => {
   const handleToPost = () => {
     navigation.push("PublicationType", navigation);
   };
 
-  console.log("RF:", RFPercentage(2.4));
+  const [newPostModal, setNewPostModal] = useState(false);
+
+  // console.log("RF:", RFPercentage(2.4));
 
   return (
     <View style={styles.viewContainer}>
@@ -176,6 +179,7 @@ const HeaderListaPlana = ({ navigation }) => {
                 width: "37.5%",
               },
             ]}
+            onPress={() => setNewPostModal(true)}
           >
             <Text
               style={{
@@ -195,6 +199,10 @@ const HeaderListaPlana = ({ navigation }) => {
         </View>
       </View>
       <ListaHorizontalHead navigation={navigation} />
+      <PostModal
+        setNewPostModal={setNewPostModal}
+        newPostModal={newPostModal}
+      />
     </View>
   );
 };
@@ -217,10 +225,10 @@ const styles = StyleSheet.create({
     borderColor: "rgb(200, 99, 49)",
     borderRadius: 15,
     borderWidth: 1,
-    height: RFPercentage(17),
+    height: RFPercentage(16),
     justifyContent: "space-between",
     marginLeft: "5%",
-    marginVertical: "5%",
+    marginVertical: "1.5%",
     width: "90%",
   },
 
@@ -230,7 +238,7 @@ const styles = StyleSheet.create({
     // borderWidth: 4,
 
     // flex: 1,
-    height: RFPercentage(44),
+    height: RFPercentage(40),
     marginBottom: RFPercentage(2),
   },
 });

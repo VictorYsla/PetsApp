@@ -1,97 +1,72 @@
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { colors } from "../../constants/Temas";
+import { colors, opacity } from "../../constants/Temas";
 
-// export const backgroundInput = (boolInput, contraseñaInput) => {
-//   if (boolInput === true || contraseñaInput !== "") {
-//     return {
-//       backgroundColor: "white",
-//       borderRadius: 10,
-//       borderColor: "rgb(252, 234, 224)",
-//       borderWidth: 2,
-//       // height: RFPercentage(5),
-//       flex: 1,
-//       marginVertical: RFPercentage(2),
-//       width: "90%",
-//     };
-//   } else {
-//     return {
-//       backgroundColor: "rgb(252, 234, 224)",
-//       borderRadius: 10,
-//       borderColor: "rgb(252, 234, 224)",
-//       borderWidth: 2,
-//       // height: RFPercentage(5),
-//       flex: 1,
-//       marginVertical: RFPercentage(2),
-//       width: "90%",
-//     };
-//   }
-// };
 export const backgroundInput = (parametro) => {
+  const border =
+    parametro === colors.focusInput ? { borderWidth: 1 } : { borderWidth: 0 };
+
   return {
     backgroundColor: parametro,
-    borderColor: colors.borderInput,
-    borderRadius: 10,
-    borderWidth: 1,
+    borderColor: opacity.borderInput,
+    borderRadius: RFPercentage(1.6),
+    ...border,
     height: RFPercentage(6),
-    marginLeft: RFPercentage(6.5),
-    // marginBottom: RFPercentage(5),
-    paddingHorizontal: 15,
+    // marginLeft: RFPercentage(6.5),
+    paddingHorizontal: RFPercentage(2.4),
     width: "77%",
   };
 };
 
 export const backgroundInput2 = (parametro) => {
-  return {
-    backgroundColor: parametro,
-    borderColor: colors.borderInput,
-    borderRadius: 10,
-    borderWidth: 1,
-    height: RFPercentage(6),
-    marginLeft: RFPercentage(6.5),
-    marginBottom: RFPercentage(15),
-    paddingHorizontal: 15,
-    width: "77%",
-  };
-};
+  const border =
+    parametro === colors.focusInput ? { borderWidth: 1 } : { borderWidth: 0 };
 
-export const backgroundInput3 = (parametro) => {
   return {
     backgroundColor: parametro,
-    borderColor: colors.borderInput,
-    borderRadius: 10,
-    borderWidth: 1,
+    borderColor: opacity.borderInput,
+    borderRadius: RFPercentage(1.6),
+    // borderWidth: 1,
+    ...border,
     height: RFPercentage(6),
-    marginLeft: RFPercentage(6.5),
-    marginBottom: RFPercentage(15),
-    paddingHorizontal: 15,
-    width: "77%",
-  };
-};
-
-export const backgroundInputNo = (parametro) => {
-  return {
-    backgroundColor: parametro,
-    borderColor: colors.borderInput,
-    borderRadius: 10,
-    borderWidth: 1,
-    height: RFPercentage(6),
-    marginLeft: RFPercentage(6.5),
+    // marginLeft: RFPercentage(6.5),
     // marginBottom: RFPercentage(15),
-    paddingHorizontal: 15,
+    paddingHorizontal: RFPercentage(2.4),
+    width: "77%",
+  };
+};
+
+export const backgroundInputNewPassword = (parametro) => {
+  const border =
+    parametro === colors.focusInput ? { borderWidth: 1 } : { borderWidth: 0 };
+
+  return {
+    backgroundColor: parametro,
+    borderColor: opacity.borderInput,
+    borderRadius: RFPercentage(1.6),
+    // borderWidth: 1,
+    ...border,
+    height: RFPercentage(6),
+    // marginLeft: RFPercentage(6.5),
+    // marginBottom: RFPercentage(15),
+    paddingHorizontal: RFPercentage(2.4),
     width: "77%",
   };
 };
 
 export const backgroundInputConfirma = (parametro) => {
+  const border =
+    parametro === colors.focusInput ? { borderWidth: 1 } : { borderWidth: 0 };
+
   return {
     backgroundColor: parametro,
-    borderColor: colors.borderInput,
-    borderRadius: 10,
-    borderWidth: 1,
+    borderColor: opacity.borderInput,
+    borderRadius: RFPercentage(1.6),
+    // borderWidth: 1,
+    ...border,
     height: RFPercentage(6),
-    marginLeft: RFPercentage(6.5),
-    marginBottom: RFPercentage(25),
-    paddingHorizontal: 15,
+    // marginLeft: RFPercentage(6.5),
+    // marginBottom: RFPercentage(25),
+    paddingHorizontal: RFPercentage(2.4),
     width: "77%",
   };
 };
@@ -113,5 +88,103 @@ export const colorEmpecemos = (parametro) => {
     color: parametro,
     fontSize: 18,
     fontWeight: "bold",
+  };
+};
+
+export const userInput1 = (parametro) => {
+  const border =
+    parametro === colors.blanco ? { borderWidth: 1 } : { borderWidth: 0 };
+  return {
+    backgroundColor: parametro,
+    borderColor: opacity.borderInput,
+    borderRadius: 10,
+    // borderWidth: 1,
+    ...border,
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(7),
+    // marginBottom: RFPercentage(5),
+    paddingHorizontal: RFPercentage(2.4),
+    width: "77%",
+  };
+};
+
+export const userInput2 = (parametro) => {
+  const border =
+    parametro === colors.blanco ? { borderWidth: 1 } : { borderWidth: 0 };
+  return {
+    backgroundColor: parametro,
+    borderColor: opacity.borderInput,
+    borderRadius: 10,
+    ...border,
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(7),
+    // marginBottom: RFPercentage(5),
+    paddingHorizontal: RFPercentage(2.4),
+    width: "77%",
+  };
+};
+
+export const userInput3 = (parametro) => {
+  const border =
+    parametro === colors.blanco ? { borderWidth: 1 } : { borderWidth: 0 };
+  return {
+    backgroundColor: parametro,
+    borderColor: opacity.borderInput,
+    borderRadius: 10,
+    ...border,
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(7),
+    // marginBottom: RFPercentage(5),
+    paddingHorizontal: RFPercentage(2.4),
+    width: "77%",
+  };
+};
+export const userInput4 = (parametro) => {
+  const border =
+    parametro === colors.blanco ? { borderWidth: 1 } : { borderWidth: 0 };
+  return {
+    backgroundColor: parametro,
+    borderColor: opacity.borderInput,
+    borderRadius: 10,
+    ...border,
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(7),
+    // marginBottom: RFPercentage(5),
+    paddingHorizontal: RFPercentage(2.4),
+    width: "77%",
+  };
+};
+
+export const userInput5 = (parametro) => {
+  const border =
+    parametro === colors.blanco ? { borderWidth: 1 } : { borderWidth: 0 };
+  return {
+    backgroundColor: parametro,
+    borderColor: opacity.borderInput,
+    borderRadius: 10,
+    ...border,
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(7),
+    // marginBottom: RFPercentage(35),
+    paddingHorizontal: RFPercentage(2.4),
+    width: "77%",
+  };
+};
+
+export const searchInput = (parametro) => {
+  const border =
+    parametro === colors.blanco ? { borderWidth: 1 } : { borderWidth: 0 };
+
+  return {
+    backgroundColor: parametro,
+    borderColor: opacity.borderInput,
+    borderRadius: 10,
+    // borderWidth: 1,
+    ...border,
+    height: RFPercentage(6),
+    marginLeft: RFPercentage(6.5),
+    marginTop: RFPercentage(7),
+    paddingHorizontal: RFPercentage(2.4),
+    width: "77%",
   };
 };

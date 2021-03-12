@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import { Text, View, StyleSheet, Image, Pressable } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  Pressable,
+  Keyboard,
+} from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { colors, font, opacity, size } from "../../constants/Temas";
+import { colors, font, margin, opacity, size } from "../../constants/Temas";
 import {
   backgroundInput,
   backgroundInputConfirma,
-  backgroundInputNo,
+  backgroundInputNewPassword,
 } from "../generals/funtionColors";
 
 const SignIn = ({ navigation }) => {
@@ -16,10 +23,9 @@ const SignIn = ({ navigation }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isFocused2, setIsFocused2] = useState(false);
   const [isFocused3, setIsFocused3] = useState(false);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
-  const goToTheInicio = () => {
-    navigation.push("Inicio", navigation);
-  };
+  // console.log("1:", isFocused, "2:", isFocused2, "3:", isFocused3);
 
   const goToTheLogIn = () => {
     navigation.navigate("Login", navigation);
@@ -28,51 +34,81 @@ const SignIn = ({ navigation }) => {
   const goToTheEndSignIn = () => {
     navigation.navigate("EndSignIn", navigation);
   };
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true); // or some other action
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false); // or some other action
+        Keyboard.dismiss();
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   return (
     <View style={styles.viewContainer}>
-      <View style={{ alignItems: "center", flex: 1, width: "100%" }}>
-        <Image
-          source={require("../../../assets/images/logo_blanco.png")}
-          style={{ flex: 1, height: "60%", resizeMode: "contain" }}
-        />
-        <View style={styles.longinSignView}>
-          <View style={styles.loginView}>
-            <Pressable
-              style={styles.logSignPressable}
-              onPress={() => goToTheLogIn()}
-            >
-              <Text style={[styles.loginText]}>Iniciar sesión</Text>
-            </Pressable>
-          </View>
-          <View style={styles.signView}>
-            <Pressable style={styles.logSignPressable}>
-              {({ pressed }) => (
-                <Text
-                  style={[
-                    styles.signText,
-                    {
-                      color: pressed
-                        ? opacity.naranajaClaro
-                        : opacity.naranjaClaroDeg,
-                      fontSize: pressed ? 15.1 : size.texto,
-                    },
-                  ]}
-                >
-                  Registrarse
-                </Text>
-              )}
-            </Pressable>
+      <ScrollView style={{ height: "100%", width: "100%" }}>
+        <View
+          style={{
+            alignItems: "center",
+            // borderWidth: 1,
+            flex: 1,
+            height: RFPercentage(30),
+            width: "100%",
+          }}
+        >
+          <Image
+            source={require("../../../assets/images/logo_blanco.png")}
+            style={{ flex: 1, height: "60%", resizeMode: "contain" }}
+          />
+          <View style={styles.longinSignView}>
+            <View style={styles.loginView}>
+              <Pressable
+                style={styles.logSignPressable}
+                onPress={() => goToTheLogIn()}
+              >
+                <Text style={[styles.loginText]}>Iniciar sesión</Text>
+              </Pressable>
+            </View>
+            <View style={styles.signView}>
+              <Pressable style={styles.logSignPressable}>
+                {({ pressed }) => (
+                  <Text
+                    style={[
+                      styles.signText,
+                      {
+                        color: pressed
+                          ? opacity.naranajaClaro
+                          : opacity.naranjaClaroDeg,
+                        fontSize: pressed ? 15.1 : size.texto,
+                      },
+                    ]}
+                  >
+                    Registrarse
+                  </Text>
+                )}
+              </Pressable>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.middleView}>
-        <ScrollView style={{ overflow: "hidden", width: "100%" }}>
+        <View style={[styles.middleView]}>
           <Text style={styles.correoText}>Correo</Text>
           <TextInput
             style={backgroundInput(
               isFocused === true || contraseñaInput !== ""
-                ? colors.blancoBase
-                : colors.naranjaBase
+                ? colors.focusInput
+                : colors.blurInput
             )}
             onBlur={() => setIsFocused(false)}
             onFocus={() => setIsFocused(true)}
@@ -81,10 +117,10 @@ const SignIn = ({ navigation }) => {
           />
           <Text style={styles.contraseñaText}>Contraseña</Text>
           <TextInput
-            style={backgroundInputNo(
+            style={backgroundInputNewPassword(
               isFocused2 === true || contraseñaInput2 !== ""
-                ? colors.blancoBase
-                : colors.naranjaBase
+                ? colors.focusInput
+                : colors.blurInput
             )}
             onBlur={() => setIsFocused2(false)}
             onFocus={() => setIsFocused2(true)}
@@ -93,42 +129,53 @@ const SignIn = ({ navigation }) => {
           />
           <Text style={styles.confirmarText}>Confirma contraseña</Text>
           <TextInput
-            style={backgroundInputConfirma(
-              isFocused3 === true || contraseñaInput3 !== ""
-                ? colors.blancoBase
-                : colors.naranjaBase
-            )}
+            style={[
+              backgroundInputConfirma(
+                isFocused3 === true || contraseñaInput3 !== ""
+                  ? colors.focusInput
+                  : colors.blurInput
+              ),
+            ]}
             onBlur={() => setIsFocused3(false)}
             onFocus={() => setIsFocused3(true)}
             onChangeText={(e) => setContraseñaInput3(e)}
             // caretHidden={true}
           />
-        </ScrollView>
-      </View>
-      <View style={{ alignItems: "center", height: "25%", width: "100%" }}>
-        <View style={styles.siguienteView}>
-          <Pressable
-            onPress={() => goToTheEndSignIn()}
-            style={styles.siguientePressable}
-          >
-            {({ pressed }) => (
-              <Text
-                style={[
-                  styles.siguienteText,
-                  {
-                    fontFamily: pressed
-                      ? font.PoppinsSemiBold
-                      : font.PoppinsLight,
-                    textDecorationLine: pressed ? "underline" : "none",
-                  },
-                ]}
-              >
-                Siguiente
-              </Text>
-            )}
-          </Pressable>
         </View>
-      </View>
+
+        <View
+          style={{
+            alignItems: "center",
+            // borderWidth: 1,
+            height: RFPercentage(15),
+            marginBottom: RFPercentage(isKeyboardVisible ? 45 : 0),
+            width: "100%",
+          }}
+        >
+          <View style={styles.siguienteView}>
+            <Pressable
+              onPress={() => goToTheEndSignIn()}
+              style={styles.siguientePressable}
+            >
+              {({ pressed }) => (
+                <Text
+                  style={[
+                    styles.siguienteText,
+                    {
+                      fontFamily: pressed
+                        ? font.PoppinsSemiBold
+                        : font.PoppinsLight,
+                      textDecorationLine: pressed ? "underline" : "none",
+                    },
+                  ]}
+                >
+                  Siguiente
+                </Text>
+              )}
+            </Pressable>
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -137,39 +184,39 @@ export default SignIn;
 const styles = StyleSheet.create({
   correoText: {
     // borderWidth: 1,
-    color: colors.naranja,
-    fontFamily: font.PoppinsSemiBold,
+    color: opacity.textoDeg,
+    fontFamily: font.PoppinsLight,
     fontSize: size.texto,
     // fontWeight: "bold",
     height: RFPercentage(5),
-    marginLeft: RFPercentage(6.5),
+    // marginLeft: RFPercentage(6.5),
     marginTop: RFPercentage(2),
     textAlignVertical: "center",
-    width: "85%",
+    width: "77%",
   },
   contraseñaText: {
     // borderWidth: 1,
-    color: colors.naranja,
-    fontFamily: font.PoppinsSemiBold,
+    color: opacity.textoDeg,
+    fontFamily: font.PoppinsLight,
     fontSize: size.texto,
     // fontWeight: "bold",
     height: RFPercentage(5),
-    marginLeft: RFPercentage(6.5),
+    // marginLeft: RFPercentage(6.5),
     marginTop: RFPercentage(2),
     textAlignVertical: "center",
-    width: "85%",
+    width: "77%", //85%
   },
   confirmarText: {
     // borderWidth: 1,
-    color: colors.naranja,
-    fontFamily: font.PoppinsSemiBold,
+    color: opacity.textoDeg,
+    fontFamily: font.PoppinsLight,
     fontSize: size.texto,
     // fontWeight: "bold",
     height: RFPercentage(5),
-    marginLeft: RFPercentage(6.5),
+    // marginLeft: RFPercentage(6.5),
     marginTop: RFPercentage(2),
     textAlignVertical: "center",
-    width: "85%",
+    width: "77%",
   },
   facebookPressable: {
     alignItems: "center",
@@ -193,7 +240,7 @@ const styles = StyleSheet.create({
   siguienteView: {
     alignItems: "center",
     // borderWidth: 1,
-    height: "50%",
+    height: RFPercentage(12),
     justifyContent: "space-between",
     marginTop: 20,
     width: "100%",
@@ -252,7 +299,7 @@ const styles = StyleSheet.create({
   middleView: {
     alignItems: "center",
     // borderWidth: 1,
-    height: "40%",
+    height: RFPercentage(42),
     // flex: 1,
     justifyContent: "center",
     width: "100%",

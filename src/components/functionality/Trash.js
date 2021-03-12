@@ -64,10 +64,6 @@ export const HISTORY = [
 
 export const DATA = [
   {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53ab28ba",
-    title: " Item1",
-  },
-  {
     id: "3ac68afc-c605-48d3-a4f8-fbd91a97f63",
     title: " Item2",
   },

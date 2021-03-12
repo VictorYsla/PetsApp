@@ -5,15 +5,17 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { colors, font, gradient, margin, size } from "../../constants/Temas";
 import { LinearGradient } from "expo-linear-gradient";
+import LastPost from "./modals/LastPost";
 
-const PublishedContent = ({ navigation }) => {
+const PublishedContent = ({ navigation, index }) => {
+  const [heart, setHeart] = useState(false);
+  const [lastPostModal, setLastPostModal] = useState(false);
   const goToTheComments = () => {
-    navigation.push("Comments", navigation);
+    setLastPostModal(true);
   };
 
-  const [heart, setHeart] = useState(false);
-
-  console.log("RF:", RFPercentage(0.7));
+  // console.log("RF:", RFPercentage(0.7));
+  // console.log("index:", index);
   return (
     <View style={styles.container}>
       <View style={styles.itemContainer}>
@@ -146,7 +148,16 @@ const PublishedContent = ({ navigation }) => {
               mientras encuentra a su dueño
             </Text>
           </LinearGradient>
-          <Text style={styles.agradecimientoText}>Disponible</Text>
+          <Text
+            style={[
+              styles.agradecimientoText,
+              {
+                backgroundColor: index === 2 ? colors.rojo : colors.verde,
+              },
+            ]}
+          >
+            {index === 2 ? "Inactivo" : "Disponible"}
+          </Text>
         </View>
         <View
           style={[
@@ -160,7 +171,11 @@ const PublishedContent = ({ navigation }) => {
           ]}
         >
           <Image
-            source={require("../../../assets/images/icon-10.png")}
+            source={
+              index === 2
+                ? require("../../../assets/images/icon-11.png")
+                : require("../../../assets/images/icon-10.png")
+            }
             style={{
               resizeMode: "stretch",
               height: "100%",
@@ -169,6 +184,10 @@ const PublishedContent = ({ navigation }) => {
           />
         </View>
       </View>
+      <LastPost
+        setLastPostModal={setLastPostModal}
+        lastPostModal={lastPostModal}
+      />
     </View>
   );
 };
@@ -189,8 +208,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     // borderWidth: 1,
     backgroundColor: colors.colorDeFondoBaseDeItemListaVertical,
-    height: RFPercentage(46),
-    marginVertical: RFPercentage(2),
+    height: RFPercentage(37),
+    // marginVertical: RFPercentage(2),
     textAlign: "center",
     width: "90%",
   },
@@ -308,7 +327,6 @@ const styles = StyleSheet.create({
   },
 
   agradecimientoText: {
-    backgroundColor: "rgb(140, 198, 63)",
     borderBottomRightRadius: RFPercentage(2),
     // borderWidth: 1,
     color: colors.blanco,
